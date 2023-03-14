@@ -8,7 +8,7 @@ declare module 'mineflayer' {
     interface Bot {
         registry: mcData.IndexedData
         mailing: {
-            mail: (username: string,message: string, items: Item[]) => void
+            mail: (username: string,message: string, items: string[]) => void
         }
     }
 
