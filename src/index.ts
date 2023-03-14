@@ -35,6 +35,10 @@ export function plugin(bot: mineflayer.Bot){
             }
 
             let item = bot.inventory.items().filter(item=>items.includes(item.name))[0]
+
+            if (!item){
+                return
+            }
             bot.transfer({
                 window: window,
                 itemType: item.slot,
