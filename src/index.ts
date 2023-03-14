@@ -35,12 +35,7 @@ export function plugin(bot: mineflayer.Bot){
         
     }
     bot.once('windowOpen', async ( window ) => {
-        if (!window.title.startsWith('{"text":"放入送给')) {
-            bot.emit('mailing_error', new Error("Not Mail GUI"))
-            // @ts-ignore
-            window.close()
-            return
-        }
+        if (!window.title.startsWith('{"text":"放入送给')) return
 
         let item = bot.inventory.items().filter(item=>bot.mailing.options.items.includes(item.name))[0]
 
