@@ -37,21 +37,14 @@ export function plugin(bot: mineflayer.Bot){
     bot.once('windowOpen', async ( window ) => {
         if (!window.title.startsWith('{"text":"放入送给')) return
 
-        let item = bot.inventory.items().filter(item=>bot.mailing.options.items.includes(item.name))[0]
+        let items = window.items().filter(item=>bot.mailing.options.items.includes(item.name) && item.slot > 8)
 
-        if (!item){
-            return
+        var i = 0
+        for (var item of items){
+            bot.moveSlotItem(item.slot, i)
+            i+=1
+            if (i>=8) break
         }
-        bot.transfer({
-            window: window,
-            itemType: item.type,
-            metadata: item.metadata,
-            count: 576,
-            sourceStart: 9,
-            sourceEnd: 26,
-            destStart: 0,
-            destEnd: 8,
-        })
         // @ts-ignore
         window.close()
     })
