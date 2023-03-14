@@ -19,7 +19,9 @@ declare module 'mineflayer' {
 
 
 export function plugin(bot: mineflayer.Bot){
-    bot.mailing.mail = (username: string, message: string, items: Item[]) => {
+    // @ts-ignore
+    bot.mailing={}
+    bot.mailing.mail = async (username: string, message: string, items: Item[]) => {
         if (bot.currentWindow) return
         if (items.length > 9) {
             bot.emit('mailing_error', new Error("Too many items, maximum is 9"))

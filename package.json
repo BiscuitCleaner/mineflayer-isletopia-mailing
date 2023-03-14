@@ -1,6 +1,6 @@
 {
   "name": "mineflayer-isletopia-mailing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An mineflayer plugin for mailing people items in minecraft server isletopia",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
