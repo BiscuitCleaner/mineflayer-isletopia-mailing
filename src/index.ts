@@ -46,6 +46,7 @@ export function plugin(bot: mineflayer.Bot){
             var i = 0
             items.forEach( async ( item: Item ) => {
                 bot.moveSlotItem(item.slot, i)
+                bot.waitForTicks(1)
                 i+=1
             })
             // @ts-ignore
