@@ -25,6 +25,8 @@ declare module 'mineflayer' {
 export function plugin(bot: mineflayer.Bot){
     // @ts-ignore
     bot.mailing={}
+    // @ts-ignore
+    bot.mailing.options={}
     bot.mailing.options.items = []
     bot.mailing.mail = (username: string, message: string, items: string[]) => {
         if (bot.currentWindow) return
