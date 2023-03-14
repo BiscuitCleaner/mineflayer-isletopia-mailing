@@ -36,7 +36,7 @@ export function plugin(bot: mineflayer.Bot){
 
 
             var i = 0
-            window.items().filter((item: Item) => items.includes(item.name)).forEach( async ( item: Item ) => {
+            window.items().filter((item: Item) => items.includes(item.name) && item.slot > 8).forEach((item) => {
                 bot.moveSlotItem(item.slot, i)
                 i+=1
             })
