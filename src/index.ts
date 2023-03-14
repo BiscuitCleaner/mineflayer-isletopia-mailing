@@ -40,7 +40,7 @@ export function plugin(bot: mineflayer.Bot){
             return
         }
 
-        let item = bot.inventory.items().filter(item=>items.includes(item.name))[0]
+        let item = bot.inventory.items().filter(item=>bot.mailing.options.items.includes(item.name))[0]
 
         if (!item){
             return
