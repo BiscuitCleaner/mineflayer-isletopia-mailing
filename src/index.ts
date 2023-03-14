@@ -34,11 +34,16 @@ export function plugin(bot: mineflayer.Bot){
                 return
             }
 
-
-            var i = 0
-            window.items().filter((item: Item) => items.includes(item.name) && item.slot > 8).forEach((item) => {
-                bot.moveSlotItem(item.slot, i)
-                i+=1
+            let item = bot.inventory.items().filter(item=>items.includes(item.name))[0]
+            bot.transfer({
+                window: window,
+                itemType: item.slot,
+                metadata: item.metadata,
+                count: 576,
+                sourceStart: 9,
+                sourceEnd: 26,
+                destStart: 0,
+                destEnd: 8,
             })
             // @ts-ignore
             window.close()
