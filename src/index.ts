@@ -22,12 +22,8 @@ export function plugin(bot: mineflayer.Bot){
     // @ts-ignore
     bot.mailing={}
 
-    bot.mailing.mail = (username: string, message: string, items: Item[]) => {
+    bot.mailing.mail = (username: string, message: string, items: string[]) => {
         if (bot.currentWindow) return
-        if (items.length > 9) {
-            bot.emit('mailing_error', new Error("Too many items, maximum is 9"))
-            return
-        }
         bot.chat(`/mail ${username} ${message}`)
 
         bot.once('windowOpen', async ( window ) => {
@@ -37,14 +33,10 @@ export function plugin(bot: mineflayer.Bot){
                 window.close()
                 return
             }
-            if (items.length > 9) {
-                bot.emit('mailing_error', new Error("Too many items, maximum is 9"))
-                // @ts-ignore
-                window.close()
-                return
-            }
+
+
             var i = 0
-            items.forEach( async ( item: Item ) => {
+            window.items().filter((item: Item) => items.includes(item.name)).forEach( async ( item: Item ) => {
                 bot.moveSlotItem(item.slot, i)
                 bot.waitForTicks(1)
                 i+=1
