@@ -41,7 +41,7 @@ export function plugin(bot: mineflayer.Bot){
             }
             bot.transfer({
                 window: window,
-                itemType: item.slot,
+                itemType: item.type,
                 metadata: item.metadata,
                 count: 576,
                 sourceStart: 9,
