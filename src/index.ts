@@ -30,30 +30,29 @@ export function plugin(bot: mineflayer.Bot){
     bot.mailing.options={}
     bot.mailing.options.items = []
     bot.mailing.mail = (username: string, message: string, items: string[]) => {
-        if (bot.currentWindow) return
         bot.chat(`/mail ${username} ${message}`)
         bot.mailing.options.items = items
         
     }
-    bot.once('windowOpen', async ( window ) => {
+    bot.on('windowOpen', async ( window ) => {
         if (!window.title.startsWith('{"text":"放入送给')) return
-        let items = [...new Set(bot.inventory.items().filter((item) => {
+
+        let items = (bot.inventory.items().filter((item) => {
             return bot.mailing.options.items.includes(item.name)
         }).map((item) => {
             return item.type
-        }))]
+        })).filter((v,i,a)=>a.indexOf(v)==i)
 
         for (let item_id of items){
-            console.log(item_id)
             try {
                 // @ts-ignore
                 await window.deposit(item_id, null, 3456, null)
             } catch {
 
             }
-            await bot.waitForTicks(3)
         }
+        await bot.waitForTicks(1)
         // @ts-ignore
-        window.close()
+        await bot.currentWindow.close()
     })
 }
