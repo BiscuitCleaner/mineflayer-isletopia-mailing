@@ -9,7 +9,7 @@ interface Options{
 
 declare module 'mineflayer' {
     interface Bot {
-        registry: mcData.IndexedData
+        data: mcData.IndexedData
         mailing: {
             mail: (username: string,message: string, items: string[]) => void
             options: Options
@@ -23,6 +23,7 @@ declare module 'mineflayer' {
 
 
 export function plugin(bot: mineflayer.Bot){
+    bot.data = mcData(bot.version)
     // @ts-ignore
     bot.mailing={}
     // @ts-ignore
@@ -36,14 +37,20 @@ export function plugin(bot: mineflayer.Bot){
     }
     bot.once('windowOpen', async ( window ) => {
         if (!window.title.startsWith('{"text":"放入送给')) return
-        let items = window.items().filter(item=>bot.mailing.options.items.includes(item.name) && item.slot > 53)
+        let items = [...new Set(bot.inventory.items().filter((item) => {
+            return bot.mailing.options.items.includes(item.name)
+        }).map((item) => {
+            return item.type
+        }))]
 
-        var i = 0
-        for (var item of items){
-            // @ts-ignore
-            window.deposit(item.type, null, 1728, null)
-            i+=1
-            if (i>=53) break
+        for (let item_id of items){
+            console.log(item_id)
+            try {
+                // @ts-ignore
+                await window.deposit(item_id, null, 3456, null)
+            } catch {
+
+            }
             await bot.waitForTicks(1)
         }
         // @ts-ignore
