@@ -36,7 +36,6 @@ export function plugin(bot: mineflayer.Bot){
     }
     bot.once('windowOpen', async ( window ) => {
         if (!window.title.startsWith('{"text":"放入送给')) return
-        console.log("passed title check")
         let items = window.items().filter(item=>bot.mailing.options.items.includes(item.name) && item.slot > 53)
 
         var i = 0
