@@ -36,8 +36,8 @@ export function plugin(bot: mineflayer.Bot){
     }
     bot.once('windowOpen', async ( window ) => {
         if (!window.title.startsWith('{"text":"放入送给')) return
-
-        let items = window.items().filter(item=>bot.mailing.options.items.includes(item.name) && item.slot > 8)
+        console.log("passed title check")
+        let items = window.items().filter(item=>bot.mailing.options.items.includes(item.name) && item.slot > 53)
 
         var i = 0
         for (var item of items){
@@ -45,6 +45,7 @@ export function plugin(bot: mineflayer.Bot){
             window.deposit(item.type, null, 1728, null)
             i+=1
             if (i>=53) break
+            await bot.waitForTicks(1)
         }
         // @ts-ignore
         window.close()
