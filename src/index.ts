@@ -41,9 +41,10 @@ export function plugin(bot: mineflayer.Bot){
 
         var i = 0
         for (var item of items){
-            bot.moveSlotItem(item.slot, i)
+            // @ts-ignore
+            window.deposit(item.type, null, 1728, null)
             i+=1
-            if (i>=8) break
+            if (i>=53) break
         }
         // @ts-ignore
         window.close()
