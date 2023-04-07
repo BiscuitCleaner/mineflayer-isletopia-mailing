@@ -51,7 +51,7 @@ export function plugin(bot: mineflayer.Bot){
             } catch {
 
             }
-            await bot.waitForTicks(1)
+            await bot.waitForTicks(3)
         }
         // @ts-ignore
         window.close()
